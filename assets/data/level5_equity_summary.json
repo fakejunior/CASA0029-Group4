@@ -1,0 +1,159 @@
+{
+  "tract_count": 310,
+  "median_income": 121760.5,
+  "median_noise_per_1000": 5.0596152314641,
+  "correlation_income_noise": -0.09067470877146767,
+  "quadrants": {
+    "high_income_low_noise": {
+      "count": 93,
+      "label": "Higher income / lower noise"
+    },
+    "low_income_high_noise": {
+      "count": 92,
+      "label": "Lower income / higher noise burden"
+    },
+    "low_income_low_noise": {
+      "count": 57,
+      "label": "Lower income / lower noise"
+    },
+    "high_income_high_noise": {
+      "count": 56,
+      "label": "Higher income / higher noise"
+    },
+    "unknown": {
+      "count": 12,
+      "label": "Insufficient data"
+    }
+  },
+  "thresholds": {
+    "income_q1": 81363.99999999999,
+    "income_q2": 155000.0,
+    "noise_q1": 3.3402922755741127,
+    "noise_q2": 7.1942446043165456,
+    "median_income": 121760.5,
+    "median_noise": 5.0596152314641
+  },
+  "top_burden": [
+    {
+      "GEOID": "36061022400",
+      "tract_name": "Tract 224",
+      "median_income": 19326.0,
+      "complaints_per_1000": 26.788386710565696,
+      "total_complaints": 179,
+      "poverty_rate": 41.81459566074951,
+      "quadrant": "low_income_high_noise",
+      "quadrant_label": "Lower income / higher noise burden",
+      "burden_score": 0.965
+    },
+    {
+      "GEOID": "36061011900",
+      "tract_name": "Tract 119",
+      "median_income": 18050.0,
+      "complaints_per_1000": 20.710059171597635,
+      "total_complaints": 28,
+      "poverty_rate": 45.79226686884003,
+      "quadrant": "low_income_high_noise",
+      "quadrant_label": "Lower income / higher noise burden",
+      "burden_score": 0.9580645161290323
+    },
+    {
+      "GEOID": "36061011300",
+      "tract_name": "Tract 113",
+      "median_income": 93750.0,
+      "complaints_per_1000": 198.52941176470588,
+      "total_complaints": 27,
+      "poverty_rate": 54.41176470588235,
+      "quadrant": "low_income_high_noise",
+      "quadrant_label": "Lower income / higher noise burden",
+      "burden_score": 0.9416129032258064
+    },
+    {
+      "GEOID": "36061023502",
+      "tract_name": "Tract 235.02",
+      "median_income": 44491.0,
+      "complaints_per_1000": 22.604951560818083,
+      "total_complaints": 42,
+      "poverty_rate": 36.92142088266954,
+      "quadrant": "low_income_high_noise",
+      "quadrant_label": "Lower income / higher noise burden",
+      "burden_score": 0.9370967741935483
+    },
+    {
+      "GEOID": "36061023000",
+      "tract_name": "Tract 230",
+      "median_income": 27860.0,
+      "complaints_per_1000": 13.222386868802007,
+      "total_complaints": 116,
+      "poverty_rate": 48.80191693290735,
+      "quadrant": "low_income_high_noise",
+      "quadrant_label": "Lower income / higher noise burden",
+      "burden_score": 0.9251612903225807
+    },
+    {
+      "GEOID": "36061002400",
+      "tract_name": "Tract 24",
+      "median_income": 21092.0,
+      "complaints_per_1000": 12.602255140393543,
+      "total_complaints": 57,
+      "poverty_rate": 48.153880168030064,
+      "quadrant": "low_income_high_noise",
+      "quadrant_label": "Lower income / higher noise burden",
+      "burden_score": 0.9230645161290323
+    },
+    {
+      "GEOID": "36061025100",
+      "tract_name": "Tract 251",
+      "median_income": 37839.0,
+      "complaints_per_1000": 17.585931254996,
+      "total_complaints": 44,
+      "poverty_rate": 29.43157894736842,
+      "quadrant": "low_income_high_noise",
+      "quadrant_label": "Lower income / higher noise burden",
+      "burden_score": 0.8982258064516129
+    },
+    {
+      "GEOID": "36061018400",
+      "tract_name": "Tract 184",
+      "median_income": 51866.0,
+      "complaints_per_1000": 38.66261398176292,
+      "total_complaints": 318,
+      "poverty_rate": 25.62917933130699,
+      "quadrant": "low_income_high_noise",
+      "quadrant_label": "Lower income / higher noise burden",
+      "burden_score": 0.8975806451612903
+    },
+    {
+      "GEOID": "36061023400",
+      "tract_name": "Tract 234",
+      "median_income": 62346.0,
+      "complaints_per_1000": 45.20396912899669,
+      "total_complaints": 246,
+      "poverty_rate": 26.58948915839765,
+      "quadrant": "low_income_high_noise",
+      "quadrant_label": "Lower income / higher noise burden",
+      "burden_score": 0.8956451612903226
+    },
+    {
+      "GEOID": "36061016200",
+      "tract_name": "Tract 162",
+      "median_income": 21942.0,
+      "complaints_per_1000": 10.085836909871245,
+      "total_complaints": 94,
+      "poverty_rate": 47.81115879828326,
+      "quadrant": "low_income_high_noise",
+      "quadrant_label": "Lower income / higher noise burden",
+      "burden_score": 0.894032258064516
+    }
+  ],
+  "bivariate_palette": {
+    "1-1": "#0b6e78",
+    "1-2": "#2c8a8d",
+    "1-3": "#7ab6c2",
+    "2-1": "#7a4d75",
+    "2-2": "#9a7aa6",
+    "2-3": "#b7b8c9",
+    "3-1": "#c1376f",
+    "3-2": "#d17c8e",
+    "3-3": "#f0c8c8"
+  }
+}

@@ -1,0 +1,461 @@
+{
+  "meta": {
+    "title": "NYC Soundscape Level 3 - H3 Spatio-temporal Noise Grid",
+    "period": "2026-02-01 to 2026-02-28",
+    "h3_resolution": 9,
+    "use_manhattan_only": true,
+    "source_groups": [
+      "residential",
+      "nightlife",
+      "street",
+      "transit",
+      "construction",
+      "mechanical",
+      "other"
+    ],
+    "source_labels": {
+      "residential": "Residential conflict",
+      "nightlife": "Bar / nightlife cluster",
+      "street": "Street / sidewalk source",
+      "transit": "Vehicle / transit source",
+      "construction": "Construction source",
+      "mechanical": "Mechanical / alarm source",
+      "other": "Public / other source"
+    },
+    "note": "Complaint points are aggregated to H3 cells by hour. Source points are complaint-derived clusters, not official sensors."
+  },
+  "hours": [
+    {
+      "hour": 0,
+      "total": 845,
+      "active_hexes": 282,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a1008d0bffff",
+      "top_hex_count": 19,
+      "category_counts": {
+        "residential": 446,
+        "nightlife": 172,
+        "street": 86,
+        "transit": 40,
+        "construction": 81,
+        "mechanical": 9,
+        "other": 11
+      }
+    },
+    {
+      "hour": 1,
+      "total": 642,
+      "active_hexes": 240,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a1008d0bffff",
+      "top_hex_count": 21,
+      "category_counts": {
+        "residential": 366,
+        "nightlife": 103,
+        "street": 75,
+        "transit": 21,
+        "construction": 61,
+        "mechanical": 4,
+        "other": 12
+      }
+    },
+    {
+      "hour": 2,
+      "total": 408,
+      "active_hexes": 193,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a1008d0bffff",
+      "top_hex_count": 14,
+      "category_counts": {
+        "residential": 227,
+        "nightlife": 59,
+        "street": 44,
+        "transit": 18,
+        "construction": 49,
+        "mechanical": 2,
+        "other": 9
+      }
+    },
+    {
+      "hour": 3,
+      "total": 272,
+      "active_hexes": 149,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a100ab53ffff",
+      "top_hex_count": 16,
+      "category_counts": {
+        "residential": 168,
+        "nightlife": 28,
+        "street": 27,
+        "transit": 20,
+        "construction": 18,
+        "mechanical": 1,
+        "other": 10
+      }
+    },
+    {
+      "hour": 4,
+      "total": 261,
+      "active_hexes": 141,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a100d2abffff",
+      "top_hex_count": 8,
+      "category_counts": {
+        "residential": 145,
+        "nightlife": 20,
+        "street": 51,
+        "transit": 19,
+        "construction": 18,
+        "mechanical": 4,
+        "other": 4
+      }
+    },
+    {
+      "hour": 5,
+      "total": 213,
+      "active_hexes": 114,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a100d2abffff",
+      "top_hex_count": 10,
+      "category_counts": {
+        "residential": 119,
+        "nightlife": 11,
+        "street": 29,
+        "transit": 23,
+        "construction": 17,
+        "mechanical": 5,
+        "other": 9
+      }
+    },
+    {
+      "hour": 6,
+      "total": 220,
+      "active_hexes": 110,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a1008ca7ffff",
+      "top_hex_count": 22,
+      "category_counts": {
+        "residential": 132,
+        "nightlife": 11,
+        "street": 18,
+        "transit": 18,
+        "construction": 35,
+        "mechanical": 4,
+        "other": 2
+      }
+    },
+    {
+      "hour": 7,
+      "total": 225,
+      "active_hexes": 119,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a100ab53ffff",
+      "top_hex_count": 11,
+      "category_counts": {
+        "residential": 94,
+        "nightlife": 12,
+        "street": 15,
+        "transit": 28,
+        "construction": 55,
+        "mechanical": 18,
+        "other": 3
+      }
+    },
+    {
+      "hour": 8,
+      "total": 271,
+      "active_hexes": 149,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a100d2abffff",
+      "top_hex_count": 8,
+      "category_counts": {
+        "residential": 120,
+        "nightlife": 15,
+        "street": 25,
+        "transit": 27,
+        "construction": 66,
+        "mechanical": 13,
+        "other": 5
+      }
+    },
+    {
+      "hour": 9,
+      "total": 310,
+      "active_hexes": 156,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a1008d0bffff",
+      "top_hex_count": 17,
+      "category_counts": {
+        "residential": 171,
+        "nightlife": 13,
+        "street": 20,
+        "transit": 18,
+        "construction": 66,
+        "mechanical": 17,
+        "other": 5
+      }
+    },
+    {
+      "hour": 10,
+      "total": 330,
+      "active_hexes": 154,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a100883bffff",
+      "top_hex_count": 23,
+      "category_counts": {
+        "residential": 142,
+        "nightlife": 10,
+        "street": 28,
+        "transit": 67,
+        "construction": 56,
+        "mechanical": 18,
+        "other": 9
+      }
+    },
+    {
+      "hour": 11,
+      "total": 367,
+      "active_hexes": 166,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a1008ddbffff",
+      "top_hex_count": 23,
+      "category_counts": {
+        "residential": 181,
+        "nightlife": 13,
+        "street": 45,
+        "transit": 64,
+        "construction": 37,
+        "mechanical": 19,
+        "other": 8
+      }
+    },
+    {
+      "hour": 12,
+      "total": 383,
+      "active_hexes": 166,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a100883bffff",
+      "top_hex_count": 21,
+      "category_counts": {
+        "residential": 155,
+        "nightlife": 17,
+        "street": 67,
+        "transit": 90,
+        "construction": 27,
+        "mechanical": 17,
+        "other": 10
+      }
+    },
+    {
+      "hour": 13,
+      "total": 371,
+      "active_hexes": 169,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a1008bafffff",
+      "top_hex_count": 25,
+      "category_counts": {
+        "residential": 158,
+        "nightlife": 15,
+        "street": 43,
+        "transit": 101,
+        "construction": 35,
+        "mechanical": 13,
+        "other": 6
+      }
+    },
+    {
+      "hour": 14,
+      "total": 367,
+      "active_hexes": 178,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a100883bffff",
+      "top_hex_count": 13,
+      "category_counts": {
+        "residential": 156,
+        "nightlife": 20,
+        "street": 81,
+        "transit": 56,
+        "construction": 33,
+        "mechanical": 13,
+        "other": 8
+      }
+    },
+    {
+      "hour": 15,
+      "total": 409,
+      "active_hexes": 176,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a100883bffff",
+      "top_hex_count": 43,
+      "category_counts": {
+        "residential": 174,
+        "nightlife": 16,
+        "street": 74,
+        "transit": 100,
+        "construction": 21,
+        "mechanical": 13,
+        "other": 11
+      }
+    },
+    {
+      "hour": 16,
+      "total": 429,
+      "active_hexes": 170,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a100883bffff",
+      "top_hex_count": 21,
+      "category_counts": {
+        "residential": 192,
+        "nightlife": 16,
+        "street": 78,
+        "transit": 96,
+        "construction": 17,
+        "mechanical": 20,
+        "other": 10
+      }
+    },
+    {
+      "hour": 17,
+      "total": 404,
+      "active_hexes": 180,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a1008d0bffff",
+      "top_hex_count": 17,
+      "category_counts": {
+        "residential": 221,
+        "nightlife": 22,
+        "street": 51,
+        "transit": 65,
+        "construction": 15,
+        "mechanical": 11,
+        "other": 19
+      }
+    },
+    {
+      "hour": 18,
+      "total": 478,
+      "active_hexes": 196,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a1008d0bffff",
+      "top_hex_count": 21,
+      "category_counts": {
+        "residential": 244,
+        "nightlife": 21,
+        "street": 64,
+        "transit": 86,
+        "construction": 35,
+        "mechanical": 8,
+        "other": 20
+      }
+    },
+    {
+      "hour": 19,
+      "total": 502,
+      "active_hexes": 207,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a1008d0bffff",
+      "top_hex_count": 20,
+      "category_counts": {
+        "residential": 222,
+        "nightlife": 28,
+        "street": 92,
+        "transit": 71,
+        "construction": 46,
+        "mechanical": 20,
+        "other": 23
+      }
+    },
+    {
+      "hour": 20,
+      "total": 589,
+      "active_hexes": 219,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a1008d0bffff",
+      "top_hex_count": 24,
+      "category_counts": {
+        "residential": 303,
+        "nightlife": 52,
+        "street": 90,
+        "transit": 59,
+        "construction": 58,
+        "mechanical": 12,
+        "other": 15
+      }
+    },
+    {
+      "hour": 21,
+      "total": 760,
+      "active_hexes": 269,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a100aaabffff",
+      "top_hex_count": 26,
+      "category_counts": {
+        "residential": 401,
+        "nightlife": 103,
+        "street": 121,
+        "transit": 44,
+        "construction": 68,
+        "mechanical": 11,
+        "other": 12
+      }
+    },
+    {
+      "hour": 22,
+      "total": 1013,
+      "active_hexes": 291,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a1008d0bffff",
+      "top_hex_count": 32,
+      "category_counts": {
+        "residential": 485,
+        "nightlife": 187,
+        "street": 161,
+        "transit": 35,
+        "construction": 101,
+        "mechanical": 26,
+        "other": 18
+      }
+    },
+    {
+      "hour": 23,
+      "total": 990,
+      "active_hexes": 297,
+      "top_source_group": "residential",
+      "top_source_label": "Residential conflict",
+      "top_hex": "892a1008d0bffff",
+      "top_hex_count": 34,
+      "category_counts": {
+        "residential": 514,
+        "nightlife": 177,
+        "street": 125,
+        "transit": 46,
+        "construction": 93,
+        "mechanical": 13,
+        "other": 22
+      }
+    }
+  ]
+}

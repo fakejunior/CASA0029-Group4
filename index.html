@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>The Manhattan Soundscape — Storytelling Version</title>
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+  <link rel="stylesheet" href="./assets/css/main.css" />
+</head>
+
+<body data-stage="level1">
+  <div id="map"></div>
+  <div class="vignette"></div>
+  <div class="scanline"></div>
+  <div class="grain"></div>
+
+  <nav class="level-nav">
+    <button class="nav-dot active" data-target="level1" title="Soundscape"></button>
+    <button class="nav-dot" data-target="level2" title="Rhythm"></button>
+    <button class="nav-dot" data-target="level3" title="Sources"></button>
+    <button class="nav-dot" data-target="level4" title="Types"></button>
+    <button class="nav-dot" data-target="level5" title="Burden"></button>
+    <button class="nav-dot" data-target="level6" title="Avoid"></button>
+    <button class="nav-dot" data-target="level7" title="Credits"></button>
+  </nav>
+
+  <aside class="story-spine glass">
+    <div class="spine-kicker">Narrative arc / from complaint to urban soundscape</div>
+    <div class="spine-track">
+      <div class="spine-step" data-stage="level1"><span class="spine-num">Theme</span><span class="spine-name">Soundscape</span></div>
+      <div class="spine-step" data-stage="level2"><span class="spine-num">Theme</span><span class="spine-name">Rhythm</span></div>
+      <div class="spine-step" data-stage="level3"><span class="spine-num">Theme</span><span class="spine-name">Sources</span></div>
+      <div class="spine-step" data-stage="level4"><span class="spine-num">Theme</span><span class="spine-name">Types</span></div>
+      <div class="spine-step" data-stage="level5"><span class="spine-num">Theme</span><span class="spine-name">Burden</span></div>
+      <div class="spine-step" data-stage="level6"><span class="spine-num">Theme</span><span class="spine-name">Avoid</span></div>
+      <div class="spine-step" data-stage="level7"><span class="spine-num">Theme</span><span class="spine-name">Credits</span></div>
+    </div>
+    <div class="spine-copy" data-stage="level1"><div class="spine-question">The Manhattan Soundscape</div><div class="spine-insight">The cover and first map are combined: accumulated building noise rotates underneath the title.</div></div>
+    <div class="spine-copy" data-stage="level2"><div class="spine-question">When</div><div class="spine-insight">The map pauses; the city is read through its 24-hour acoustic rhythm.</div></div>
+    <div class="spine-copy" data-stage="level3"><div class="spine-question">Why here, why now?</div><div class="spine-insight">Real source evidence explains the hourly risk field.</div></div>
+    <div class="spine-copy" data-stage="level4"><div class="spine-question">What kind of place?</div><div class="spine-insight">Clusters turn scattered exposure into a typology of sound districts.</div></div>
+    <div class="spine-copy" data-stage="level5"><div class="spine-question">Who bears the burden?</div><div class="spine-insight">Noise exposure is compared with income and poverty, moving the story from place types to social exposure.</div></div>
+    <div class="spine-copy" data-stage="level6"><div class="spine-question">How can it be avoided?</div><div class="spine-insight">Users choose two points on the map and the interface computes two routes: shortest distance and lower-noise exposure.</div></div>
+    <div class="spine-copy" data-stage="level7"><div class="spine-question">What data and tools support the story?</div><div class="spine-insight">The final page summarizes sources, methods, group credits, and AI use.</div></div>
+  </aside>
+  <section id="ui-cover" class="stage-ui cover-ui">
+    <div class="cover-panel glass">
+      <div class="eyebrow"><span class="pulse-dot"></span> Manhattan noise-risk atlas</div>
+      <h1>The Manhattan <span>Soundscape</span></h1>
+      <p class="cover-subtitle">Uncovering Spatial-Temporal Rhythms and Urban Noise Exposure</p>
+      <p class="cover-note">A scrollytelling visualization of 311 noise complaints, urban sound sources, social exposure, and noise-aware movement across Manhattan.</p>
+      <div class="cover-actions">
+        <button class="btn cover-start" data-target="level2">Scroll to Rhythm</button>
+        <button class="btn cover-routing" data-target="level6">Jump to routing</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="ui-level1" class="stage-ui">
+    <div class="hero glass">
+      <div class="eyebrow"><span class="pulse-dot"></span> Manhattan Building Noise</div>
+      <h1>Noise <span>Sticks</span> to Manhattan</h1>
+      <p class="subtitle">The story begins with a simple proposition: in Manhattan, noise does not simply disappear after a complaint is filed. It accumulates on buildings, turning ordinary footprints into an invisible layer of urban pressure.</p>
+      <div class="chapter-role"><span>Chapter role</span> What / Where</div>
+      <div class="narrative-lens">
+        <div class="lens-item"><div class="lens-label">Question</div><div class="lens-text">Where does noise <strong>stick</strong> to the city?</div></div>
+        <div class="lens-item"><div class="lens-label">Evidence</div><div class="lens-text">3D buildings encode accumulated complaint intensity.</div></div>
+        <div class="lens-item"><div class="lens-label">Insight</div><div class="lens-text">Noise behaves like a spatial pollution layer.</div></div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-label">Buildings</div><div id="stat-buildings" class="stat-value">--</div></div>
+        <div class="stat-card"><div class="stat-label">Complaints</div><div id="stat-noise" class="stat-value">--</div></div>
+        <div class="stat-card"><div class="stat-label">Max Risk</div><div id="stat-max" class="stat-value">--</div></div>
+      </div>
+      <div class="story-strip">
+        <button class="story-card active" data-l1-story="overview">
+          <div class="story-num">01 / Field</div>
+          <div class="story-title">Noise as pollution</div>
+          <div class="story-text">Start from the city surface: buildings become carriers of accumulated sound risk.</div>
+        </button>
+        <button class="story-card" data-l1-story="hotspots">
+          <div class="story-num">02 / Hotspots</div>
+          <div class="story-title">Find risk peaks</div>
+          <div class="story-text">Move from the full field to the peaks where complaints repeatedly return.</div>
+        </button>
+        <button class="story-card" data-l1-story="inspect">
+          <div class="story-num">03 / Inspect</div>
+          <div class="story-title">Read one building</div>
+          <div class="story-text">Treat one building as a local sound object rather than just a polygon.</div>
+        </button>
+      </div>
+    </div>
+    <div class="legend glass">
+      <div class="chart-title">Accumulated Noise Index</div>
+      <div class="gradient"></div>
+      <div class="ticks"><span>Low</span><span>5</span><span>15</span><span>30+</span><span>Peak</span></div>
+      <div class="mini-note">Bright points mark representative high-noise building centroids. Extrusion height is symbolic noise intensity, not physical building height.</div>
+    </div>
+    <div class="controls">
+      <button id="rotateBtn" class="btn active">Auto Orbit</button>
+      <button id="hotspotBtn" class="btn active">High-noise Points</button>
+      <button id="resetBtn" class="btn">Reset View</button>
+    </div>
+  </section>
+
+  <section id="ui-level2" class="stage-ui">
+    <div class="intro glass">
+      <div class="eyebrow"><span class="pulse-dot"></span> Level 02 / Manhattan Temporal Rhythm</div>
+      <h2>When Does <span>Noise Wake Up?</span></h2>
+      <p class="subtitle">After locating the accumulated field, the story turns to rhythm. The ridgeline asks when Manhattan becomes loud, while the right map is kept as a restrained response layer rather than the main evidence.</p>
+      <div class="chapter-role"><span>Chapter role</span> When / Rhythm</div>
+      <div class="narrative-lens">
+        <div class="lens-item"><div class="lens-label">Question</div><div class="lens-text">When does the city <strong>wake up</strong> acoustically?</div></div>
+        <div class="lens-item"><div class="lens-label">Evidence</div><div class="lens-text">24-hour ridgelines compare category rhythms.</div></div>
+        <div class="lens-item"><div class="lens-label">Insight</div><div class="lens-text">Different noise types follow different urban clocks.</div></div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-label">Total Complaints</div><div id="level2-total" class="stat-value">--</div></div>
+        <div class="stat-card"><div class="stat-label">Peak Hour</div><div id="level2-peak" class="stat-value">--</div></div>
+        <div class="stat-card"><div class="stat-label">Night Share</div><div id="level2-night" class="stat-value">--</div></div>
+      </div>
+      <div class="story-strip">
+        <button class="story-card active" data-l2-story="night">
+          <div class="story-num">Night / 22:00</div>
+          <div class="story-title">Residential + nightlife pulse</div>
+          <div class="story-text">Late evening is where private life, entertainment, and residential conflict overlap.</div>
+        </button>
+        <button class="story-card" data-l2-story="morning">
+          <div class="story-num">Morning / 08:00</div>
+          <div class="story-title">Commute noise rises</div>
+          <div class="story-text">Morning exposes the infrastructure rhythm of movement, streets, and transit.</div>
+        </button>
+        <button class="story-card" data-l2-story="daywork">
+          <div class="story-num">Day / 10:00</div>
+          <div class="story-title">Construction window</div>
+          <div class="story-text">Construction produces a daytime signature that differs from nightlife noise.</div>
+        </button>
+        <button class="story-card" data-l2-story="quiet">
+          <div class="story-num">Dawn / 04:00</div>
+          <div class="story-title">The quiet trough</div>
+          <div class="story-text">The quietest hour gives a baseline for judging abnormal exposure later.</div>
+        </button>
+      </div>
+      <div id="l2-hour-context" class="rhythm-insight"><strong>10PM reading:</strong> late-evening noise is treated as a temporal signature rather than a spatial hotspot.</div>
+    </div>
+    <div class="chart-panel glass">
+      <div class="chart-head">
+        <div>
+          <div class="chart-title">24-hour Noise Rhythm Matrix</div>
+          <div class="chart-subtitle">The vertical line is the selected hour. Story cards highlight the category that explains the rhythm.</div>
+        </div>
+        <div class="control-row">
+          <button class="btn active" data-day="All days">All Days</button>
+          <button class="btn" data-day="Weekday">Weekday</button>
+          <button class="btn" data-day="Weekend">Weekend</button>
+          <button id="modeBtn" class="btn active">Shape Mode</button>
+        </div>
+      </div>
+      <div class="time-bar">
+        <button id="playHourBtn" class="btn">▶ Play</button>
+        <input id="hourSlider" type="range" min="0" max="23" value="22" step="1" />
+        <div id="hourReadout" class="hour-pill">10PM</div>
+      </div>
+      <svg id="level2Chart"></svg>
+    </div>
+  </section>
+
+  <aside id="callout-level1" class="map-callout">
+    <div class="inner glass">
+      <div id="l1-callout-title" class="callout-title">Building Noise Surface</div>
+      <div id="l1-callout-text" class="callout-text">Use the story cards on the left to switch from an overview, to hotspot discovery, to single-building inspection. The map responds to each reading mode.</div>
+    </div>
+  </aside>
+
+  <aside id="callout-level2" class="map-callout">
+    <div class="inner glass">
+      <div id="l2-callout-title" class="callout-title">Temporal Map Response</div>
+      <div id="l2-callout-text" class="callout-text">Level 02 keeps the map on the right as a secondary response layer. The left ridgeline explains time; the right 3D buildings show how the selected hour appears spatially.</div>
+    </div>
+  </aside>
+
+  <section id="ui-level3" class="stage-ui">
+    <div class="intro glass">
+      <div class="eyebrow"><span class="pulse-dot"></span> Level 03 / Manhattan H3 Spatio-temporal Grid</div>
+      <h2>From Noise to <span>Sources</span></h2>
+      <p class="subtitle">Once the rhythm is visible, this chapter asks why specific areas become noisy at specific times. H3 hexagons show the hourly field, while nightlife venues, subway stations, and Manhattan bus corridors act as evidence layers for possible sound sources.</p>
+      <div class="chapter-role"><span>Chapter role</span> Why / Source mechanism</div>
+      <div class="narrative-lens">
+        <div class="lens-item"><div class="lens-label">Question</div><div class="lens-text">Why does this place sound like <strong>this</strong>?</div></div>
+        <div class="lens-item"><div class="lens-label">Evidence</div><div class="lens-text">H3 fields are read with nightlife, subway, and bus layers.</div></div>
+        <div class="lens-item"><div class="lens-label">Insight</div><div class="lens-text">Noise hotspots are produced by urban activities, not random points.</div></div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-label">Current Hour Total</div><div id="l3-total" class="stat-value">--</div></div>
+        <div class="stat-card"><div class="stat-label">Active Hexes</div><div id="l3-hexes" class="stat-value">--</div></div>
+        <div class="stat-card"><div class="stat-label">Top Source</div><div id="l3-source" class="stat-value">--</div></div>
+      </div>
+      <div class="source-filter">
+        <button class="chip active" data-metric="total">All noise</button>
+        <button class="chip" data-metric="nightlife">Bars / nightlife</button>
+        <button class="chip" data-metric="transit">Transit / vehicle</button>
+        <button class="chip" data-metric="street">Street</button>
+        <button class="chip" data-metric="construction">Construction</button>
+        <button class="chip" data-metric="residential">Residential</button>
+      </div>
+      <div class="story-strip">
+        <button class="story-card active" data-l3-scenario="nightlife">
+          <div class="story-num">22:00 / Night</div>
+          <div class="story-title">Nightlife pulse</div>
+          <div class="story-text">Pink nightlife venues are added as evidence for evening hotspots, helping explain where the night-time risk field comes from.</div>
+        </button>
+        <button class="story-card" data-l3-scenario="commute">
+          <div class="story-num">08:00 / Commute</div>
+          <div class="story-title">Transit corridor</div>
+          <div class="story-text">Green Manhattan bus corridors and cyan subway stations reveal how movement infrastructure supports the morning noise surface.</div>
+        </button>
+        <button class="story-card" data-l3-scenario="daywork">
+          <div class="story-num">10:00 / Day</div>
+          <div class="story-title">Construction hours</div>
+          <div class="story-text">Construction is inferred from 311 source clusters, with real transport and POI layers kept as urban context.</div>
+        </button>
+      </div>
+    </div>
+    <div class="h3-panel glass">
+      <div class="chart-head">
+        <div>
+          <div class="chart-title">Source Composition at Selected Hour</div>
+          <div id="l3-subtitle" class="chart-subtitle">H3 grid + source markers are controlled by the same 24-hour slider.</div>
+        </div>
+        <div id="l3-hour-pill" class="hour-pill">10PM</div>
+      </div>
+      <svg id="level3BarChart"></svg>
+      <div class="source-note"><strong>Source evidence layer:</strong> the H3 grid still comes from 311 complaints, but the auxiliary layers explain possible origins. Pink points are real nightlife POIs, cyan points are subway stations, and green lines are bus corridors clipped to Manhattan only, not the full NYC bus network.</div>
+      <div class="source-legend">
+        <div class="legend-item"><span class="swatch" style="color:#ff2d6f;background:#ff2d6f"></span>Bar / nightlife clusters</div>
+        <div class="legend-item"><span class="swatch" style="color:#47ffb3;background:#47ffb3"></span>Transit / vehicle sources</div>
+        <div class="legend-item"><span class="swatch" style="color:#ff9f1c;background:#ff9f1c"></span>Street / sidewalk sources</div>
+        <div class="legend-item"><span class="swatch" style="color:#fff37a;background:#fff37a"></span>Construction sources</div>
+        <div class="legend-item"><span class="swatch" style="color:#00eaff;background:#00eaff"></span>Residential conflict</div>
+        <div class="legend-item"><span class="swatch" style="color:#b388ff;background:#b388ff"></span>Mechanical / other sources</div>
+        <div class="legend-item"><span class="swatch" style="color:#ff5d91;background:#ff5d91"></span>Real nightlife venues</div>
+        <div class="legend-item"><span class="swatch" style="color:#7df9ff;background:#7df9ff"></span>Subway stations</div>
+        <div class="legend-item"><span class="swatch" style="color:#47ffb3;background:#47ffb3"></span>Manhattan bus corridors</div>
+      </div>
+    </div>
+    <div class="stage3-bottom glass">
+      <button id="playL3Btn" class="btn">▶ Play</button>
+      <input id="hourSlider3" type="range" min="0" max="23" value="22" step="1" />
+      <button id="sourceToggleBtn" class="btn active">Show Sources</button>
+      <button id="lineToggleBtn" class="btn active">Transit Lines</button>
+    </div>
+  </section>
+
+  <aside id="callout-level3" class="map-callout">
+    <div class="inner glass">
+      <div class="callout-title">Reading Level 03</div>
+      <div class="callout-text">Hexagons show the time-sliced sound field. The added source evidence layers turn the map from a heatmap into an explanation: nightlife POIs, subway stations, and Manhattan-clipped bus corridors help reveal why different areas become noisy.</div>
+    </div>
+  </aside>
+
+  <section id="ui-level4" class="stage-ui">
+    <div class="intro glass">
+      <div class="eyebrow"><span class="pulse-dot"></span> Level 04 / Manhattan Soundscape Clusters</div>
+      <h2>Types of <span>Soundscape</span></h2>
+      <p class="subtitle">The final analytical chapter steps back from individual hours. Instead of asking whether a place is louder, it asks what kind of soundscape it belongs to: nightlife core, residential impact zone, transit-street exposure, construction belt, or mixed-use conflict.</p>
+      <div class="chapter-role"><span>Chapter role</span> Typology / Districts</div>
+      <div class="narrative-lens">
+        <div class="lens-item"><div class="lens-label">Question</div><div class="lens-text">Are noisy places different only in intensity, or also in <strong>kind</strong>?</div></div>
+        <div class="lens-item"><div class="lens-label">Evidence</div><div class="lens-text">Cluster colors summarize source mix and temporal behavior.</div></div>
+        <div class="lens-item"><div class="lens-label">Insight</div><div class="lens-text">Manhattan is composed of multiple soundscape districts.</div></div>
+      </div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="stat-label">Clustered Cells</div><div id="l4-cells" class="stat-value">--</div></div>
+        <div class="stat-card"><div class="stat-label">Soundscape Types</div><div id="l4-types" class="stat-value">--</div></div>
+        <div class="stat-card"><div class="stat-label">Selected Type</div><div id="l4-selected" class="stat-value">--</div></div>
+      </div>
+      <div id="level4ClusterCards" class="cluster-card-grid"></div>
+    </div>
+    <div class="cluster-panel glass">
+      <div class="chart-head">
+        <div>
+          <div class="chart-title">From Local Fields to Soundscape Types</div>
+          <div id="l4-subtitle" class="chart-subtitle">Click a cluster card or a colored cell on the map. The reduced space shows how each soundscape type separates; the detailed radar profile appears only in the side panel.</div>
+        </div>
+      </div>
+      <div class="cluster-viz-grid">
+        <div class="pca-box">
+          <div class="viz-title">Reduced Cluster Space</div>
+          <svg id="clusterPca"></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <aside id="callout-level4" class="map-callout">
+    <div class="inner glass">
+      <div id="l4-callout-title" class="callout-title">Soundscape Classification</div>
+      <div id="l4-callout-text" class="callout-text">Each colored region is an H3 cell assigned to a Manhattan soundscape type. Click any cell to open the side panel and inspect its radar profile.</div>
+    </div>
+  </aside>
+
+  <section id="ui-level5" class="stage-ui">
+    <div class="level5-left glass">
+      <div class="eyebrow"><span class="pulse-dot"></span> Socio-acoustic Burden</div>
+      <h2>Who Bears the <span>Noise Burden?</span></h2>
+      <p class="subtitle">The story now leaves the full-screen map. Each dot is a Manhattan census tract, positioned by socioeconomic status and noise exposure. The question is not only where noise occurs, but who lives with it.</p>
+      <div class="chapter-role"><span>Chapter role</span> Equity / Burden</div>
+
+      <div class="level5-question-block">
+        <div class="lens-label">Question</div>
+        <div class="lens-text">Do lower-income communities also experience higher complaint-based noise exposure?</div>
+      </div>
+      <div class="level5-question-block">
+        <div class="lens-label">Evidence</div>
+        <div class="lens-text">Median household income is compared against 311 noise complaints per 1,000 residents at census-tract scale.</div>
+      </div>
+      <div class="level5-question-block">
+        <div class="lens-label">Insight</div>
+        <div class="lens-text">Noise becomes a social exposure pattern, not just a spatial hotspot.</div>
+      </div>
+
+      <div class="level5-controls">
+        <button class="level5-mode active" data-l5-mode="burden">
+          <div class="level5-mode-title">Burden quadrant</div>
+          <div class="level5-mode-text">Focus on lower-income / higher-noise tracts as priority concern areas.</div>
+        </button>
+        <button class="level5-mode" data-l5-mode="income">
+          <div class="level5-mode-title">Income gradient</div>
+          <div class="level5-mode-text">Read how income varies across the same noise exposure space.</div>
+        </button>
+        <button class="level5-mode" data-l5-mode="poverty">
+          <div class="level5-mode-title">Poverty stress</div>
+          <div class="level5-mode-text">Use poverty rate as an additional social vulnerability signal.</div>
+        </button>
+      </div>
+
+      <div class="level5-stat-stack">
+        <div class="stat-grid level5-mode-stats">
+          <div class="stat-card"><div id="l5-stat1-label" class="stat-label">Priority Tracts</div><div id="l5-tracts" class="stat-value">--</div></div>
+          <div class="stat-card"><div id="l5-stat2-label" class="stat-label">Median Income</div><div id="l5-med-income" class="stat-value">--</div></div>
+          <div class="stat-card"><div id="l5-stat3-label" class="stat-label">Income × Noise r</div><div id="l5-corr" class="stat-value">--</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="level5-center glass">
+      <div class="level5-chart-head">
+        <div>
+          <div class="level5-chart-title">Income–Noise Exposure Space</div>
+          <div id="l5-chart-subtitle" class="level5-chart-subtitle">X-axis: median household income. Y-axis: 311 noise complaints per 1,000 residents. Dot size represents population.</div>
+        </div>
+        <div class="level5-chart-tools">
+          <button id="l5-reset-selection" class="btn">Reset</button>
+          <button id="l5-priority-btn" class="btn active">Priority Burden</button>
+        </div>
+      </div>
+      <svg id="level5Scatter"></svg>
+      <div class="level5-bottom-note">
+        <div class="quad-chip"><strong>Low income / high noise</strong><span>Potential socio-acoustic burden</span></div>
+        <div class="quad-chip"><strong>High income / high noise</strong><span>Activity-rich high exposure</span></div>
+        <div class="quad-chip"><strong>Low income / low noise</strong><span>Lower measured exposure</span></div>
+        <div class="quad-chip"><strong>High income / low noise</strong><span>Higher-income quiet profile</span></div>
+      </div>
+    </div>
+
+    <div class="level5-right glass">
+      <div>
+        <div id="l5-profile-title" class="profile-title">Select a census tract</div>
+        <div id="l5-profile-subtitle" class="profile-subtitle">Click a dot in the quadrant chart or a tract in the small inset. The full-screen map is intentionally muted here so that the social comparison becomes the main visual argument.</div>
+      </div>
+      <div class="level5-profile-grid">
+        <div class="profile-metric"><div class="label">Median Income</div><div id="l5-profile-income" class="value">--</div></div>
+        <div class="profile-metric"><div class="label">Noise / 1k residents</div><div id="l5-profile-noise" class="value hot">--</div></div>
+        <div class="profile-metric"><div class="label">Population</div><div id="l5-profile-pop" class="value">--</div></div>
+        <div class="profile-metric"><div class="label">Poverty Rate</div><div id="l5-profile-poverty" class="value">--</div></div>
+      </div>
+      <div class="level5-mini-map-box">
+        <div class="viz-title">Linked tract inset / bivariate classes</div>
+        <svg id="level5MiniMap"></svg>
+        <div class="bivar-legend" id="l5-bivar-legend"></div>
+        <div class="bivar-labels">Color combines <strong>noise exposure</strong> and <strong>income</strong>: upward means higher noise; rightward means higher income.</div>
+      </div>
+    </div>
+  </section>
+
+  <aside id="callout-level5" class="map-callout">
+    <div class="inner glass">
+      <div class="callout-title">Why this chapter looks different</div>
+      <div class="callout-text">Level 05 uses a linked statistical dashboard instead of another full-screen map. The goal is to compare social position and exposure, then use the small tract inset only as spatial context.</div>
+    </div>
+  </aside>
+
+  <section id="ui-level6" class="stage-ui">
+    <div class="level6-left glass">
+      <div class="eyebrow"><span class="pulse-dot"></span> Interactive Noise-aware Routing</div>
+      <h2>Choose Two Points. <span>Avoid the Noise.</span></h2>
+      <p id="l6-scenario-desc" class="subtitle">This final chapter turns the noise field into an action layer. Click any two points on the Manhattan map. The system snaps them to the H3 risk graph and computes two routes in real time.</p>
+      <div class="chapter-role"><span>Chapter role</span> Action / Decision</div>
+
+      <div class="level6-question-block">
+        <div class="lens-label">How to use</div>
+        <div class="lens-text">First click sets the origin. Second click sets the destination. The routes are then computed automatically.</div>
+      </div>
+      <div class="level6-question-block">
+        <div class="lens-label">Routing logic</div>
+        <div class="lens-text">Gold uses ordinary distance. Cyan uses Dijkstra with an additional penalty for crossing high-noise hexagons.</div>
+      </div>
+      <div class="level6-question-block">
+        <div class="lens-label">Map reading</div>
+        <div class="lens-text">The glowing field around the paths shows the routing-hour noise risk. Red/pink cells are costly zones that the quiet path tries to bypass.</div>
+      </div>
+
+      <div id="l6-click-status" class="level6-status">
+        <div class="status-step active"><span>1</span> Click origin</div>
+        <div class="status-step"><span>2</span> Click destination</div>
+        <div class="status-step"><span>3</span> Compare routes</div>
+      </div>
+
+      <div class="level6-control-row">
+        <button id="l6-clear-btn" class="btn">Clear Points</button>
+        <button id="l6-replay-btn" class="btn">Replay Routes</button>
+        <button id="l6-toggle-risk" class="btn active">Risk Field On</button>
+      </div>
+
+      <div class="level6-scenario-card">
+        <div class="meta">Selected route</div>
+        <div id="l6-route-status" class="name">Waiting for two map clicks</div>
+        <div class="scenario-grid">
+          <div><div class="meta">Origin</div><div id="l6-start-name" class="value">Not selected</div></div>
+          <div><div class="meta">Destination</div><div id="l6-end-name" class="value">Not selected</div></div>
+          <div><div class="meta">Routing hour</div><div id="l6-hour" class="value">--</div></div>
+          <div><div class="meta">Graph cells</div><div id="l6-cell-count" class="value">--</div></div>
+        </div>
+      </div>
+
+      <div class="level6-stat-strip">
+        <div class="stat-card"><div class="stat-label">Exposure reduction</div><div id="l6-stat-reduction" class="stat-value">--</div></div>
+        <div class="stat-card"><div class="stat-label">Extra distance</div><div id="l6-stat-distance" class="stat-value">--</div></div>
+        <div class="stat-card"><div class="stat-label">Hotspots avoided</div><div id="l6-stat-hotspots" class="stat-value">--</div></div>
+      </div>
+    </div>
+
+    <div class="level6-center">
+      <div class="level6-floating glass">
+        <div class="level6-floating-title">Interactive route theatre</div>
+        <div class="level6-floating-text">Click the map itself. The selected origin and destination become route markers, and the two paths draw progressively through the noise field.</div>
+      </div>
+      <div class="level6-legend glass">
+        <div class="legend-item"><span class="swatch swatch-hot"></span><span>High noise risk</span></div>
+        <div class="legend-item"><span class="swatch swatch-short"></span><span>Shortest path</span></div>
+        <div class="legend-item"><span class="swatch swatch-safe"></span><span>Lower-noise path</span></div>
+        <div class="legend-item"><span class="swatch swatch-marker"></span><span>Clicked points</span></div>
+      </div>
+    </div>
+
+    <div class="level6-right glass">
+      <div class="level6-head">
+        <div>
+          <div class="profile-title">Route comparison</div>
+          <div class="profile-subtitle">After two points are selected, the panel updates with distance, average risk, cumulative exposure, and hotspot crossings.</div>
+        </div>
+        <div class="level6-focus-tabs">
+          <button class="btn active" data-l6-focus="compare">Compare</button>
+          <button class="btn" data-l6-focus="shortest">Shortest</button>
+          <button class="btn" data-l6-focus="quiet">Quiet</button>
+        </div>
+      </div>
+
+      <div id="l6-card-shortest" class="route-card active" data-l6-focus="shortest">
+        <div class="route-card-top">
+          <div>
+            <div class="route-chip shortest">Shortest</div>
+            <div class="route-name">Minimum distance route</div>
+          </div>
+          <div id="l6-shortest-distance" class="route-distance">--</div>
+        </div>
+        <div class="route-metrics">
+          <div class="metric"><span>Avg risk</span><strong id="l6-shortest-risk">--</strong></div>
+          <div class="metric"><span>Hotspots</span><strong id="l6-shortest-hot">--</strong></div>
+          <div class="metric"><span>Exposure</span><strong id="l6-shortest-cost">--</strong></div>
+        </div>
+      </div>
+
+      <div id="l6-card-quiet" class="route-card" data-l6-focus="quiet">
+        <div class="route-card-top">
+          <div>
+            <div class="route-chip quiet">Quiet</div>
+            <div class="route-name">Lower-noise safety route</div>
+          </div>
+          <div id="l6-quiet-distance" class="route-distance">--</div>
+        </div>
+        <div class="route-metrics">
+          <div class="metric"><span>Avg risk</span><strong id="l6-quiet-risk">--</strong></div>
+          <div class="metric"><span>Hotspots</span><strong id="l6-quiet-hot">--</strong></div>
+          <div class="metric"><span>Exposure</span><strong id="l6-quiet-cost">--</strong></div>
+        </div>
+      </div>
+
+      <div class="comparison-box">
+        <div class="comparison-title">Trade-off summary</div>
+        <div class="comparison-row">
+          <div class="comparison-label">Distance</div>
+          <div class="comparison-bars">
+            <div class="comparison-track"><div id="l6-bar-short-distance" class="comparison-fill shortest"></div></div>
+            <div class="comparison-track"><div id="l6-bar-quiet-distance" class="comparison-fill quiet"></div></div>
+          </div>
+        </div>
+        <div class="comparison-row">
+          <div class="comparison-label">Noise exposure</div>
+          <div class="comparison-bars">
+            <div class="comparison-track"><div id="l6-bar-short-risk" class="comparison-fill shortest"></div></div>
+            <div class="comparison-track"><div id="l6-bar-quiet-risk" class="comparison-fill quiet"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="level6-note">
+        <div class="mini-note">This is a conceptual route over the H3 sound field, not turn-by-turn navigation. It shows how the same city can produce different movement choices when exposure is part of the route cost.</div>
+      </div>
+    </div>
+  </section>
+
+  <aside id="callout-level6" class="map-callout">
+    <div class="inner glass">
+      <div class="callout-title">Click two points on the map</div>
+      <div class="callout-text">The browser runs Dijkstra immediately after the second point is selected. Gold shows distance minimization; cyan shows noise-aware routing.</div>
+    </div>
+  </aside>
+
+  <aside id="sidePanel" class="side-panel">
+    <button class="close-btn" onclick="closePanel()">×</button>
+    <div class="eyebrow"><span class="pulse-dot"></span> Selected Object</div>
+    <div id="panel-title" class="panel-title">Sound Object</div>
+    <p class="subtitle">Click or hover a building, H3 cell, or source cluster to inspect local noise exposure.</p>
+    <div class="data-card"><div class="label">Identifier</div><div id="panel-id" class="value">--</div></div>
+    <div class="data-card"><div class="label">Noise Count</div><div id="panel-count" class="value hot">--</div><div class="risk-meter"><div id="risk-fill" class="risk-fill"></div></div></div>
+    <div class="data-card"><div class="label">Main Source / Cluster</div><div id="panel-source" class="value">--</div></div>
+    <div id="panelRadarWrap"><div class="viz-title">Selected D3.js Radar Profile</div><svg id="panelRadar"></svg></div>
+    <div class="mini-note">For Level 3 and Level 4, labels are derived from 311 complaint categories and should be interpreted as perceived noise source or soundscape clusters.</div>
+  </aside>
+
+  <div id="tooltip" class="tooltip"></div>
+  <section id="ui-level7" class="stage-ui credits-ui">
+    <div class="credits-shell glass">
+      <div class="credits-header">
+        <div>
+          <div class="eyebrow"><span class="pulse-dot"></span> Methods & Credits</div>
+          <h2>Data, Methods & <span>Credits</span></h2>
+          <p>This project integrates open urban data, spatial indexing, clustering, socioeconomic analysis, and interactive routing to construct a narrative visualization of Manhattan’s soundscape.</p>
+        </div>
+        <div class="credits-group-card">
+          <div class="group-label">CASA0029</div>
+          <div class="group-title">Group 4</div>
+          <div class="member-line"><strong>Chaoyue Zhang</strong><span>22081693</span></div>
+          <div class="member-line"><strong>Chenwei Fang</strong><span>25168446</span></div>
+        </div>
+      </div>
+
+      <div class="credits-grid">
+        <section class="credits-block data-block">
+          <div class="block-title">Data Sources</div>
+          <div class="source-grid">
+            
+
+        <article class="credit-source-card">
+          <div class="source-title">311 Noise Complaints</div>
+          <div class="source-meta">NYC Open Data</div>
+          <p>Core dataset for identifying complaint locations, complaint categories, temporal patterns, and accumulated noise exposure.</p>
+          <a href="https://nycopendata.socrata.com/Social-Services/311-Noise-Complaints/" target="_blank" rel="noopener noreferrer">https://nycopendata.socrata.com/Social-Services/311-Noise-Complaints/</a>
+        </article>
+
+        <article class="credit-source-card">
+          <div class="source-title">3D Building Footprints / Building Geometry</div>
+          <div class="source-meta">NYC Open Data / NYC Department of Information Technology and Telecommunications</div>
+          <p>Used to construct the 3D building-based soundscape map, where accumulated complaints are mapped onto Manhattan buildings.</p>
+          <a href="https://data.cityofnewyork.us/City-Government/BUILDING/5zhs-2jue/about_data" target="_blank" rel="noopener noreferrer">https://data.cityofnewyork.us/City-Government/BUILDING/5zhs-2jue/about_data</a>
+        </article>
+
+        <article class="credit-source-card">
+          <div class="source-title">MTA Bus Routes</div>
+          <div class="source-meta">MTA Open Data</div>
+          <p>Used as a transit-related sound source layer to explain street-level and corridor-based noise exposure.</p>
+          <a href="https://data.ny.gov/zh/Transportation/MTA-Current-Bus-Routes-Map/559g-c57t" target="_blank" rel="noopener noreferrer">https://data.ny.gov/zh/Transportation/MTA-Current-Bus-Routes-Map/559g-c57t</a>
+        </article>
+
+        <article class="credit-source-card">
+          <div class="source-title">Subway Stations</div>
+          <div class="source-meta">MTA Open Data</div>
+          <p>Used as transit infrastructure points to support the interpretation of noise concentration around mobility nodes.</p>
+          <a href="https://data.ny.gov/Transportation/MTA-Subway-Stations/39hk-dx4f/about_data" target="_blank" rel="noopener noreferrer">https://data.ny.gov/Transportation/MTA-Subway-Stations/39hk-dx4f/about_data</a>
+        </article>
+
+        <article class="credit-source-card">
+          <div class="source-title">Nightlife Points of Interest</div>
+          <div class="source-meta">OpenStreetMap / Overpass API</div>
+          <p>Used to represent nightlife-related noise sources such as bars, pubs, nightclubs, and selected restaurant-bar venues.</p>
+          <a href="https://overpass-turbo.eu" target="_blank" rel="noopener noreferrer">https://overpass-turbo.eu</a>
+        </article>
+
+        <article class="credit-source-card">
+          <div class="source-title">2020 Census Tracts</div>
+          <div class="source-meta">NYC Open Data / U.S. Census Bureau TIGER/Line</div>
+          <p>Used as the spatial unit for linking noise exposure with population and socioeconomic indicators.</p>
+          <a href="https://data.cityofnewyork.us" target="_blank" rel="noopener noreferrer">https://data.cityofnewyork.us</a>
+        </article>
+
+        <article class="credit-source-card">
+          <div class="source-title">ACS Socioeconomic Data</div>
+          <div class="source-meta">U.S. Census Bureau American Community Survey 5-Year Estimates</div>
+          <p>Used to obtain median household income, total population, and poverty-related indicators for census tract-level inequality analysis.</p>
+          <a href="https://www.census.gov/programs-surveys/acs" target="_blank" rel="noopener noreferrer">https://www.census.gov/programs-surveys/acs</a>
+        </article>
+
+        <article class="credit-source-card">
+          <div class="source-title">Street Centerline Network</div>
+          <div class="source-meta">NYC Open Data</div>
+          <p>Used to construct the street-based graph for the noise-aware routing analysis.</p>
+          <a href="https://nycmaps-nyc.hub.arcgis.com" target="_blank" rel="noopener noreferrer">https://nycmaps-nyc.hub.arcgis.com</a>
+        </article>
+
+        <article class="credit-source-card">
+          <div class="source-title">Map Tiles and Basemap</div>
+          <div class="source-meta">Mapbox</div>
+          <p>Used for 3D basemap rendering, interactive map navigation, and visual styling.</p>
+          <a href="https://www.mapbox.com" target="_blank" rel="noopener noreferrer">https://www.mapbox.com</a>
+        </article>
+          </div>
+        </section>
+
+        <section class="credits-block methods-block">
+          <div class="block-title">Methods & Tools</div>
+          <div class="method-list">
+            <div><strong>Spatial mapping</strong><span>311 noise complaints were linked with building footprints, H3 grids, census tracts, and street centerlines.</span></div>
+            <div><strong>Temporal aggregation</strong><span>Complaints were aggregated into 24-hour cycles to reveal category-specific daily rhythms.</span></div>
+            <div><strong>H3 indexing</strong><span>Point complaints were converted into high-resolution hexagonal units for hourly sound-field mapping.</span></div>
+            <div><strong>Sound source interpretation</strong><span>Bus routes, subway stations, and nightlife venues were added as explanatory evidence layers.</span></div>
+            <div><strong>Clustering and equity analysis</strong><span>Soundscape types were identified through clustering, while tract-level exposure was compared with ACS socioeconomic indicators.</span></div>
+            <div><strong>Noise-aware routing</strong><span>A Manhattan street centerline graph was used to compare shortest-distance and lower-noise routes.</span></div>
+            <div><strong>Frontend framework</strong><span>Python, GeoPandas, H3, scikit-learn, Mapbox GL JS, D3.js, HTML, CSS, and JavaScript were used.</span></div>
+          </div>
+
+          <div class="block-title contribution-title">Contribution Statement</div>
+          <div class="contribution-grid">
+            <div class="contribution-card">
+              <strong>Chaoyue Zhang</strong>
+              <span>Led the project concept, data preprocessing workflow, spatial analysis, scrollytelling structure, frontend integration, and the noise-aware routing module.</span>
+            </div>
+            <div class="contribution-card">
+              <strong>Chenwei Fang</strong>
+              <span>Supported dataset collection, map-layer checking, interface testing, visual interpretation, and refinement of the story explanation.</span>
+            </div>
+          </div>
+
+          <div class="block-title contribution-title">Use of AI Tools</div>
+          <p class="ai-note">AI tools were used as supportive tools for code debugging, Python preprocessing, HTML/CSS refinement, Mapbox GL JS and D3.js interaction improvement, and narrative wording. Dataset selection, analytical decisions, visual interpretation, and final integration were reviewed and controlled by the group members.</p>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <div id="loading" class="loading">
+    <div class="loader">
+      <div class="loader-ring"></div>
+      <div class="loader-title">Loading Urban Sound Field</div>
+      <div class="loader-sub">Reading Manhattan soundscape layers</div>
+    </div>
+  </div>
+
+  <main id="scroll">
+    <section class="scroll-step" id="level1" data-stage="level1"></section>
+    <section class="scroll-step" id="level2" data-stage="level2"></section>
+    <section class="scroll-step" id="level3" data-stage="level3"></section>
+    <section class="scroll-step" id="level4" data-stage="level4"></section>
+    <section class="scroll-step" id="level5" data-stage="level5"></section>
+    <section class="scroll-step" id="level6" data-stage="level6"></section>
+    <section class="scroll-step" id="level7" data-stage="level7"></section>
+  </main>
+
+  <script src="./assets/js/config.js"></script>
+  <script src="./assets/js/app.js"></script>
+</body>
+</html>

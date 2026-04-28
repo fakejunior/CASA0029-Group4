@@ -1,0 +1,201 @@
+{
+  "meta": {
+    "title": "Manhattan Soundscape Level 4",
+    "period": "2026-02-01 to 2026-03-01",
+    "h3_resolution": 9,
+    "n_clusters": 5,
+    "total_cells": 445,
+    "total_complaints": 11028,
+    "source_groups": [
+      "residential",
+      "nightlife",
+      "street",
+      "transit",
+      "construction",
+      "mechanical",
+      "other"
+    ]
+  },
+  "clusters": [
+    {
+      "cluster_id": 0,
+      "label": "Nightlife core",
+      "color": "#ff2d6f",
+      "cell_count": 24,
+      "total_count": 657,
+      "share_percent": 5.96,
+      "mean_cell_count": 27.38,
+      "center": [
+        -73.949509,
+        40.813267
+      ],
+      "pca_center": [
+        -1.3118,
+        -0.1933
+      ],
+      "radar": {
+        "Residential": 0.0931,
+        "Nightlife": 0.2723,
+        "Street": 0.4855,
+        "Transit": 0.0703,
+        "Construction": 0.0558,
+        "Night share": 0.3118
+      },
+      "category_counts": {
+        "residential": 69,
+        "nightlife": 162,
+        "street": 385,
+        "transit": 17,
+        "construction": 17,
+        "mechanical": 5,
+        "other": 2
+      },
+      "dominant_source": "street",
+      "narrative": "Evening and late-night complaints are highly visible, often linked to commercial entertainment, music, bars, and street activity."
+    },
+    {
+      "cluster_id": 1,
+      "label": "Residential impact zone",
+      "color": "#00eaff",
+      "cell_count": 126,
+      "total_count": 3410,
+      "share_percent": 30.92,
+      "mean_cell_count": 27.06,
+      "center": [
+        -73.958546,
+        40.789472
+      ],
+      "pca_center": [
+        -0.1986,
+        -0.4833
+      ],
+      "radar": {
+        "Residential": 0.5586,
+        "Nightlife": 0.2483,
+        "Street": 0.034,
+        "Transit": 0.032,
+        "Construction": 0.0516,
+        "Night share": 0.3792
+      },
+      "category_counts": {
+        "residential": 2162,
+        "nightlife": 782,
+        "street": 98,
+        "transit": 91,
+        "construction": 151,
+        "mechanical": 67,
+        "other": 59
+      },
+      "dominant_source": "residential",
+      "narrative": "Residential complaints are central, indicating repeated household-level conflicts such as banging, pounding, loud talking, or indoor music."
+    },
+    {
+      "cluster_id": 2,
+      "label": "Transit-street exposure",
+      "color": "#47ffb3",
+      "cell_count": 25,
+      "total_count": 1054,
+      "share_percent": 9.56,
+      "mean_cell_count": 42.16,
+      "center": [
+        -73.97652,
+        40.778394
+      ],
+      "pca_center": [
+        -2.5496,
+        -0.4308
+      ],
+      "radar": {
+        "Residential": 0.0787,
+        "Nightlife": 0.0727,
+        "Street": 0.0052,
+        "Transit": 0.6705,
+        "Construction": 0.1103,
+        "Night share": 0.2016
+      },
+      "category_counts": {
+        "residential": 85,
+        "nightlife": 58,
+        "street": 9,
+        "transit": 819,
+        "construction": 63,
+        "mechanical": 13,
+        "other": 7
+      },
+      "dominant_source": "transit",
+      "narrative": "Traffic, street, sidewalk, and mobility-related noise dominate the local soundscape profile."
+    },
+    {
+      "cluster_id": 3,
+      "label": "Daytime construction belt",
+      "color": "#fff37a",
+      "cell_count": 93,
+      "total_count": 1286,
+      "share_percent": 11.66,
+      "mean_cell_count": 13.83,
+      "center": [
+        -73.981037,
+        40.751588
+      ],
+      "pca_center": [
+        -1.232,
+        1.2236
+      ],
+      "radar": {
+        "Residential": 0.1028,
+        "Nightlife": 0.2473,
+        "Street": 0.0287,
+        "Transit": 0.0495,
+        "Construction": 0.4359,
+        "Night share": 0.3646
+      },
+      "category_counts": {
+        "residential": 135,
+        "nightlife": 301,
+        "street": 44,
+        "transit": 68,
+        "construction": 608,
+        "mechanical": 112,
+        "other": 18
+      },
+      "dominant_source": "construction",
+      "narrative": "Noise is more active during working hours, suggesting construction, equipment, and daytime operational sound sources."
+    },
+    {
+      "cluster_id": 4,
+      "label": "Mixed-use conflict zone",
+      "color": "#8b5cff",
+      "cell_count": 177,
+      "total_count": 4621,
+      "share_percent": 41.9,
+      "mean_cell_count": 26.11,
+      "center": [
+        -73.963203,
+        40.784324
+      ],
+      "pca_center": [
+        1.3267,
+        -0.2118
+      ],
+      "radar": {
+        "Residential": 0.1726,
+        "Nightlife": 0.6407,
+        "Street": 0.0302,
+        "Transit": 0.0563,
+        "Construction": 0.0678,
+        "Night share": 0.5605
+      },
+      "category_counts": {
+        "residential": 815,
+        "nightlife": 3031,
+        "street": 146,
+        "transit": 216,
+        "construction": 262,
+        "mechanical": 93,
+        "other": 58
+      },
+      "dominant_source": "nightlife",
+      "narrative": "No single source dominates. The area combines multiple urban activities, creating a mixed-use acoustic conflict field."
+    }
+  ]
+}
